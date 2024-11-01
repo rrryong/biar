@@ -1,11 +1,28 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web AR with MindAR</title>
+    <!-- A-Frame and MindAR Scripts -->
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-  </head>
-  <body>
-    <a-scene>
-      <a-box position="0 1 -3" color="blue"></a-box>
-      <a-sky color="lightblue"></a-sky>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar-js@1.1.6/dist/aframe/mindar-image-aframe.min.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden;">
+    <!-- MindAR Scene -->
+    <a-scene mindar-image="imageTargetSrc: ./assets/targets.mind; autoStart: true;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+        <a-assets>
+            <!-- 로컬 비디오 파일 설정 -->
+            <video id="video" src="./assets/motionposter.mp4" autoplay loop="true" crossorigin="anonymous"></video>
+        </a-assets>
+
+        <!-- look-controls 속성 제거하여 카메라가 움직임을 따라가도록 설정 -->
+        <a-camera position="0 0 0"></a-camera>
+
+        <a-entity mindar-image-target="targetIndex: 0">
+            <!-- 비디오가 표시될 위치 -->
+            <a-video src="#video" position="0 0 0" height="1" width="1.5" rotation="0 0 0"></a-video>
+        </a-entity>
     </a-scene>
-  </body>
+</body>
 </html>
